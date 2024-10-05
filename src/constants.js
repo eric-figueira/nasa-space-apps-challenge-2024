@@ -22,6 +22,29 @@ export const dialogueData = {
   exit: `If you want to exit JSLegendDev's portfolio, just close the tab.`,
 };
 
+export const realDialogueData = {
+  1: `2023 holds the record for being the hottest year globally since NASA began satellite monitoring!}`,
+  2: `Since 1993, global sea levels have been rising at an average rate of 4.4 mm per year due to melting ice and thermal expansion.`,
+  3: `Carbon dioxide (CO₂) is the most significant greenhouse gas contributing to the Earth's temperature rise.`,
+  4: ` Over 95% of global warming is directly linked to human actions like burning fossil fuels and deforestation.`,
+  5: `The Arctic is warming more than twice as fast as the global average, which is why its ice is melting so quickly.`,
+  6: `Global warming is causing Greenland to lose around 300 billion tons of ice every year—about the weight of 1,500 Empire State Buildings!`,
+  7: `NASA's OCO-2 satellite measures the global distribution of CO₂, helping scientists understand where carbon is coming from and where it's being absorbed.`,
+  8: `Since the start of the industrial age, atmospheric CO₂ levels have increased by 45%, driving climate change. `,
+  9: `The Middle East and North Africa are experiencing more frequent extreme droughts, severely impacting water supplies.`,
+  10: `Climate change is shrinking habitats for many species, putting their survival at risk.`,
+  11: `About 90% of the excess heat from global warming is absorbed by the oceans, causing rising sea temperatures and threatening marine ecosystems`,
+  12: ` Half of the world's coral reefs have already been lost due to rising sea temperatures and ocean acidification, which bleaches and weakens the corals.`,
+  13: ` Climate change has extended the duration of wildfire seasons, especially in regions like the western United States, causing more intense and frequent fires.`,
+  14: `Global warming has led to a significant increase in the frequency and intensity of heatwaves, with major impacts on public health and agriculture.`,
+  15: ` Antarctica and the Arctic are losing ice at unprecedented rates, with Antarctica alone shedding 150 billion metric tons of ice per year. `,
+  16: `Climate change is affecting crop yields by altering growing seasons, reducing water availability, and increasing the likelihood of pests and diseases.`,
+  17: `As CO₂ levels increase in the atmosphere, more of it gets absorbed by the oceans, making the water more acidic and harming shellfish, corals, and other marine life.`,
+  18: ` The frequency of extreme weather events, such as hurricanes, floods, and droughts, has increased due to climate change, affecting millions of people worldwide.`,
+  19: ` Many species are being forced to migrate to new areas due to changing climate conditions, disrupting ecosystems and food chains. `,
+  20: `As the Arctic warms, permafrost—ground that has been frozen for centuries—is thawing, releasing stored carbon dioxide and methane, which accelerates global warming.`
+}
+
 export const quizData = [
   {
     question: 'According to NASA satellite data, what was the hottest year on record globally so far?',
