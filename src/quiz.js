@@ -16,7 +16,10 @@ const red = "#FB7575";
 const game = {};
 
 function informCorrect(element) {
-  // play correct sound
+  var audio = new Audio('./assets/audios/correct.mp3');
+  audio.volume = 0.15;
+  audio.play();
+
   element.style.backgroundColor = green;
 
   // confetti
@@ -33,7 +36,10 @@ function informCorrect(element) {
 }
 
 function informError(element) {
-  // play error sound
+  var audio = new Audio('./assets/audios/buzzer.mp3');
+  audio.volume = 0.15;
+  audio.play();
+
   element.style.backgroundColor = red;
 }
 
