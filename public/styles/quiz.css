@@ -22,6 +22,7 @@ body {
 
 #quiz-container {
   max-width: 800px;
+  padding-inline: 24px;
 }
 
 #question-title {
@@ -191,4 +192,17 @@ body {
 }
 .pixel-corners::after {
   margin: -4px;
+}
+
+@media only screen and (max-width: 640px) {
+  .answers {
+    display: flex;
+    flex-direction: column;
+  
+    gap: 16px;
+  }
+
+  .answer:hover {
+    transform: scale(1.025);
+  }
 }
