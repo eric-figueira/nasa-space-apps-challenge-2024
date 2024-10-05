@@ -9,22 +9,27 @@
     <link rel="icon" href="./assets/images/logo.ico" type="image/x-icon"/>
   </head>
   <body>
-    <div id="quiz-container" onload="start">
-      <h1 id="question-title">1. Quais são os gases abaixo que não participam do efeito estufa?</h1>
-      <div class="answers">
-        <div class="answer pixel-corners" id="A">Gás Carbônico</div>
-        <div class="answer pixel-corners" id="B">Gás Ozônio</div>
-        <div class="answer pixel-corners" id="C">Gás Metano</div>
-        <div class="answer pixel-corners" id="D">Gás Estufa</div>
-      </div>
+    <div id="branding">
+      <img src="./assets/images/branding.png" alt="Thermocalypse logo and its name" id="logo-image" draggable="false">
     </div>
-    <div id="score-container">
-      <h3 id="score-title">Quase lá!</h1>
-      <h3 id="score-result">Você acertou 9 das 10 questões</h3>
-      <h3 class="motivational">Continue aprendendo sobre as mudanças climáticas!</h3>
-      <a href="/" class="playAgain">
-        Jogar novamente
-      </a>
+    <div class="wrapper">
+      <div id="quiz-container" onload="start">
+        <h1 id="question-title">1. Quais são os gases abaixo que não participam do efeito estufa?</h1>
+        <div class="answers">
+          <div class="answer pixel-corners" id="A">Gás Carbônico</div>
+          <div class="answer pixel-corners" id="B">Gás Ozônio</div>
+          <div class="answer pixel-corners" id="C">Gás Metano</div>
+          <div class="answer pixel-corners" id="D">Gás Estufa</div>
+        </div>
+      </div>
+      <div id="score-container">
+        <h3 id="score-title">Quase lá!</h1>
+        <h3 id="score-result">Você acertou 9 das 10 questões</h3>
+        <h3 class="motivational">Continue learning about the Climate Crises.</h3>
+        <a href="/" class="playAgain pixel-corners">
+          Play again
+        </a>
+      </div>
     </div>
   </body>
   <script type="module" src="../src/quiz.js"></script>

@@ -16,8 +16,16 @@ body {
   height: 100vh;
 
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center;     /* Centraliza o conteúdo horizontalmente */
+  flex-grow: 1;            /* Faz com que o quiz ocupe o espaço disponível */
 }
 
 #quiz-container {
@@ -41,7 +49,14 @@ body {
 .answer {
   font-size: 2.5rem;
   font-weight: 600;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   text-align: center;
+
+  padding-inline: 8px;
 
   padding-block: 12px;
   border: 2px solid #000;
@@ -57,6 +72,7 @@ body {
 #score-container {
   display: none;
   text-align: center;
+  
 }
 
 #score-title {
@@ -68,12 +84,14 @@ body {
 #score-result {
   font-size: 3em;
   text-align: center;
+  margin-top: 24px;
 }
 
 .motivational {
   font-size: 2.5em;
   text-align: center;
   color: rgb(130, 130, 130);
+  margin-top: 24px;
 }
 
 .playAgain {
@@ -84,16 +102,17 @@ body {
   text-decoration: none;
   color: #000;
   background-color: #fff;
-  font-size: 2em;
+  font-size: 2.25em;
   border-radius: 6px;
   width: fit-content;
   text-align: center;
   margin: auto;
-  margin-top: 24px;
+  margin-top: 48px;
 }
 
 .playAgain:hover {
   text-decoration: 2px underline #000;
+  transform: translate(0, -4px);
 }
 
 .pixel-corners,
@@ -194,6 +213,11 @@ body {
   margin: -4px;
 }
 
+#logo-image {
+  max-width: 400px;
+  height: auto; 
+}
+
 @media only screen and (max-width: 640px) {
   .answers {
     display: flex;
@@ -204,5 +228,15 @@ body {
 
   .answer:hover {
     transform: scale(1.025);
+  }
+
+  #logo-image {
+    max-width: 350px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #logo-image {
+    max-width: 100%;
   }
 }

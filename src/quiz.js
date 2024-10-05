@@ -78,17 +78,17 @@ function showScore(game) {
 
   let message = "";
   if (score / numberOfQuestions <= 0.4) {
-    message = "Poxa!";
+    message = "Oops!";
   } else if (score / numberOfQuestions < 0.7) {
-    message = "Bom!";
+    message = "Good!";
   } else if (score / numberOfQuestions < 0.9) {
-    message = "Quase lá";
+    message = "Almost there!";
   } else {
-    message = "Excelente!";
+    message = "Excelent!";
   }
 
   document.getElementById("score-title").innerHTML = message;
-  document.getElementById("score-result").innerHTML = `Você acertou ${score} das ${numberOfQuestions} perguntas`;
+  document.getElementById("score-result").innerHTML = `You got ${score} out ${numberOfQuestions} questions right.`;
 }
 
 function updateQuiz(game) {
