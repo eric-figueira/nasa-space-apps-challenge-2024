@@ -10,16 +10,31 @@ const C = document.getElementById("C");
 const D = document.getElementById("D");
 const answersElements = [A, B, C, D];
 
+const green = "#59E351";
+const red = "#FB7575";
+
 const game = {};
 
 function informCorrect(element) {
   // play correct sound
-  element.style.backgroundColor = "green";
+  element.style.backgroundColor = green;
+
+  // confetti
+  const pos = element.getBoundingClientRect();
+  const x = (pos.left + pos.width / 2) / window.innerWidth;
+  const y = (pos.top + pos.height / 2) / window.innerHeight;
+
+  confetti({
+    particleCount: 100,
+    spread: 50,
+    origin: { x: x, y: y },
+  });
+
 }
 
 function informError(element) {
   // play error sound
-  element.style.backgroundColor = "red";
+  element.style.backgroundColor = red;
 }
 
 async function guess(event) {
