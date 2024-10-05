@@ -1,0 +1,95 @@
+@font-face {
+  font-family: monogram;
+  src: url(../monogram.ttf);
+}
+
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: monogram, monospace;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#quiz-container {
+  max-width: 800px;
+}
+
+#question-title {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.answers {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 32px;
+}
+
+.answer {
+  font-size: 2rem;
+  text-align: center;
+
+  padding-block: 12px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+
+.answer:hover {
+  transform: scale(1.1);
+}
+
+#score-container {
+  display: none;
+  text-align: center;
+}
+
+#score-title {
+  font-size: 4em;
+  text-align: center;
+  color: rgb(130, 130, 130);
+}
+
+#score-result {
+  font-size: 3em;
+  text-align: center;
+}
+
+.motivational {
+  font-size: 2.5em;
+  text-align: center;
+  color: rgb(130, 130, 130);
+}
+
+.playAgain {
+  display: block;
+  border: 2px solid #000;
+  padding-block: 16px;
+  padding-inline: 24px;
+  text-decoration: none;
+  color: #000;
+  background-color: #fff;
+  font-size: 2em;
+  border-radius: 6px;
+  width: fit-content;
+  text-align: center;
+  margin: auto;
+  margin-top: 24px;
+}
+
+.playAgain:hover {
+  text-decoration: 2px underline #000;
+}
