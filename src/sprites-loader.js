@@ -13,16 +13,7 @@ export function loadSprites(k) {
       "walk-up": { from: 1014, to: 1017, loop: true, speed: 8 },
     }
   });
-  
-  
-  k.loadSprite("birds", "./assets/game/birds.png", {
-    sliceX: 4,
-    sliceY: 1,
-    anims: {
-      "fly": { from: 0, to: 3, loop: true, speed: 8 },
-    }
-  });
-  
+
   k.loadSprite("map", "./assets/game/map.png");
 
   k.loadSprite("cat-map", "./assets/game/cat-level-map.png");
@@ -57,6 +48,16 @@ export function loadSprites(k) {
       "walk-up": { from: 6, to: 8, loop: true, speed: 8 },
       "idle-side": 4,
       "walk-side": { from: 3, to: 5, loop: true, speed: 8 },
+    }
+  });
+
+  k.loadSprite("forest", "./assets/game/maze-of-trees.png");
+
+  k.loadSprite("birds", "./assets/game/birds.png", {
+    sliceX: 4,
+    sliceY: 1,
+    anims: {
+      "fly": { from: 0, to: 3, loop: true, speed: 8 },
     }
   });
 }

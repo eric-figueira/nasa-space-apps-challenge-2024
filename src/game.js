@@ -701,4 +701,139 @@ k.scene("parking", async () => {
 });
 
 
-k.go("parking");
+k.scene("forest", async () => {
+  const mapData = await (await fetch("./assets/game/maze-of-trees.json")).json();
+  const layers = mapData.layers;
+
+  const map = k.add([
+    k.sprite("forest"),
+    k.pos(0),
+    k.scale(scaleFactor / 2)
+  ]);
+
+  const player = k.make([
+    k.sprite("birds", { anim: "fly" }),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.body(),
+    k.anchor("center"),
+    k.pos(),
+    k.scale(scaleFactor / 2),
+    {
+      speed: 450,
+      direction: "right",
+      isInDialogue: false
+    },
+    "player"
+  ]);
+
+  setCamScale(k);
+
+  k.onResize(() => {
+    setCamScale(k);
+  });
+
+  k.onUpdate(() => {
+    k.camPos(player.pos.x, player.pos.y + 100);
+  });
+
+  for (const layer of layers) {
+    if (layer.name === "boundaries") {
+      for (const boundary of layer.objects) {
+        map.add([
+          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height)}),
+          k.body({ isStatic: true }),
+          k.pos(boundary.x, boundary.y),
+          boundary.name,
+        ]);
+
+        if (boundary.name) {
+          player.onCollide(boundary.name, () => {
+            player.isInDialogue = true;
+
+            displayDialog(realDialogueData[boundary.name], () => {
+              player.isInDialogue = false;
+            });
+          })
+        }
+      }
+
+      continue;
+    }
+
+    if (layer.name === "spawnpoint") {
+      for (const entity of layer.objects) {
+        if (entity.name === "player") {
+          player.pos = k.vec2(
+            (map.pos.x + entity.x) * scaleFactor / 2,
+            (map.pos.y + entity.y) * scaleFactor / 2
+          );
+          k.add(player);
+
+          continue;
+        }
+
+        // if (entity.name === "tree") {
+        //   k.add([
+        //     k.sprite("forest"),
+        //     k.pos(0),
+        //     k.scale(scaleFactor / 4)
+        //   ]);
+        //   player.pos = k.vec2(
+        //     (map.pos.x + entity.x) * scaleFactor / 4,
+        //     (map.pos.y + entity.y) * scaleFactor / 4
+        //   );
+        //   k.add(player);
+
+        //   continue;
+        // }
+      }
+    }
+  }
+
+  k.onKeyDown((key) => {
+    const keyMap = [
+      k.isKeyDown("right"),
+      k.isKeyDown("left"),
+      k.isKeyDown("up"),
+      k.isKeyDown("down"),
+    ];
+
+    let nbOfKeyPressed = 0;
+    for (const key of keyMap) {
+      if (key) {
+        nbOfKeyPressed++;
+      }
+    }
+
+    if (nbOfKeyPressed > 1) return;
+    if (player.isInDialogue) return;
+
+    if (keyMap[0]) {
+      player.flipX = false;
+      player.direction = "right";
+      player.move(player.speed, 0);
+      return;
+    }
+
+    if (keyMap[1]) {
+      player.flipX = true;
+      player.direction = "left";
+      player.move(-player.speed, 0);
+      return;
+    }
+
+    if (keyMap[2]) {
+      player.direction = "up";
+      player.move(0, -player.speed);
+      return;
+    }
+
+    if (keyMap[3]) {
+      player.direction = "down";
+      player.move(0, player.speed);
+    }
+  });
+});
+
+
+k.go("forest");
