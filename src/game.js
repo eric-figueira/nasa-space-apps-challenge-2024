@@ -814,22 +814,24 @@ k.scene("forest", async ({ hasConversation }) => {
         }
 
         if (entity.name === "tree") {
-          if (k.randi(1, 3) === 1) {
-            const tree = k.make([
-              k.sprite("trees", { anim: "tree-1" }),
-              k.anchor("bot"),
-              k.pos((map.pos.x + entity.x) * scaleFactor / 2, (map.pos.y + entity.y) * scaleFactor / 2),
-              k.scale(scaleFactor / 2.5)
-            ]);
-            k.add(tree);
-          } else {
-            const tree = k.make([
-              k.sprite("trees", { anim: "tree-2" }),
-              k.anchor("bot"),
-              k.pos((map.pos.x + entity.x) * scaleFactor / 2, (map.pos.y + entity.y) * scaleFactor / 2),
-              k.scale(scaleFactor / 2.5)
-            ]);
-            k.add(tree);
+          if (k.rand() > 0.5) {
+            if (k.randi(1, 3) === 1) {
+              const tree = k.make([
+                k.sprite("trees", { anim: "tree-1" }),
+                k.anchor("bot"),
+                k.pos((map.pos.x + entity.x) * scaleFactor / 2, (map.pos.y + entity.y) * scaleFactor / 2),
+                k.scale(scaleFactor / 2.5)
+              ]);
+              k.add(tree);
+            } else {
+              const tree = k.make([
+                k.sprite("trees", { anim: "tree-2" }),
+                k.anchor("bot"),
+                k.pos((map.pos.x + entity.x) * scaleFactor / 2, (map.pos.y + entity.y) * scaleFactor / 2),
+                k.scale(scaleFactor / 2.5)
+              ]);
+              k.add(tree);
+            }
           }
         }
       }
@@ -1103,5 +1105,5 @@ k.scene("lose", async ({ backTo }) => {
 });
 
 
-k.go("classroom", { isFinalScene: false });
-// k.go("parking", { hasConversation: true });
+//k.go("classroom", { isFinalScene: false });
+ k.go("forest", { hasConversation: true });
