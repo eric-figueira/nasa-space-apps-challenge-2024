@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "./pages/index.html",
+  base: "./",
   build: {
     minify: "terser",
   }

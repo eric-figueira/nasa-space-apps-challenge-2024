@@ -1105,5 +1105,5 @@ k.scene("lose", async ({ backTo }) => {
 });
 
 
-//k.go("classroom", { isFinalScene: false });
- k.go("forest", { hasConversation: true });
+k.go("classroom", { isFinalScene: false });
+// k.go("forest", { hasConversation: true });
