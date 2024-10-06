@@ -170,6 +170,11 @@ k.scene("main", async () => {
 });
 
 k.scene("cat", async () => {
+  k.play("catSound", {
+    volume: 0.2,
+    loop: true
+  })
+
   k.setGravity(2000);
 
   const mapData = await (await fetch("./assets/game/cat-level-map.json")).json();
@@ -334,6 +339,11 @@ k.scene("cat", async () => {
 });
 
 k.scene("classroom", async ({ isFinalScene }) => {
+  k.play("schoolSound", {
+    volume: 0.2,
+    loop: true
+  })
+
   const mapData = await (await fetch("./assets/game/classroom.json")).json();
   const layers = mapData.layers;
 
@@ -392,6 +402,11 @@ k.scene("classroom", async ({ isFinalScene }) => {
 });
 
 k.scene("desert", async () => {
+  k.play("desertSound", {
+    volume: 0.2,
+    loop: true
+  })
+
   const mapData = await (await fetch("./assets/game/desert-map.json")).json();
   const layers = mapData.layers;
 
@@ -558,6 +573,11 @@ k.scene("desert", async () => {
 });
 
 k.scene("parking", async () => {
+  k.play("parkingSound", {
+    volume: 0.2,
+    loop: true
+  })
+
   const mapData = await (await fetch("./assets/game/parking.json")).json();
   const layers = mapData.layers;
 
@@ -703,6 +723,11 @@ k.scene("parking", async () => {
 });
 
 k.scene("forest", async () => {
+  k.play("forestSound", {
+    volume: 0.2,
+    loop: true
+  })
+
   const mapData = await (await fetch("./assets/game/maze-of-trees.json")).json();
   const layers = mapData.layers;
 
@@ -846,6 +871,11 @@ k.scene("forest", async () => {
 });
 
 k.scene("ice", async () => {
+  k.play("iceSound", {
+    volume: 0.2,
+    loop: true
+  })
+
   const mapData = await (await fetch("./assets/game/ice-caps-map.json")).json();
   const layers = mapData.layers;
 
@@ -987,12 +1017,22 @@ k.scene("ice", async () => {
 });
 
 k.scene("transition", async ({ conversation, nextScene }) => {
+  k.play("victory", {
+    volume: 0.2,
+    loop: false
+  })
+
   displayConversation(conversation, () => {
     k.go(nextScene);
   });
 });
 
 k.scene("lose", async ({ backTo }) => {
+  k.play("gameover", {
+    volume: 0.2,
+    loop: false
+  })
+
   k.add([
 		k.text("You lose!"),
 		k.pos(k.width() / 2, k.height() / 2 - 58),

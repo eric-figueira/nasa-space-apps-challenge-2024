@@ -83,4 +83,20 @@ export function loadSprites(k) {
   });
 
   k.loadSprite("ice-map", "./assets/game/ice-caps-map.png");
+
+  k.loadSound("forestSound", "./assets/audios/map5.mp3");
+
+  k.loadSound("desertSound", "./assets/audios/map4.mp3");
+
+  k.loadSound("iceSound", "./assets/audios/map3.mp3");
+
+  k.loadSound("catSound", "./assets/audios/map2.mp3");
+
+  k.loadSound("parkingSound", "./assets/audios/map1.mp3");
+
+  k.loadSound("schoolSound", "./assets/audios/school.mp3");
+
+  k.loadSound("victory", "./assets/audios/win.mp3");
+
+  k.loadSound("gameover", "./assets/audios/gameover.mp3");
 }
