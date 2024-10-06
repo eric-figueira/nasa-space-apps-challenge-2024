@@ -55,6 +55,15 @@ export function loadSprites(k) {
 
   k.loadSprite("forest", "./assets/game/maze-of-trees.png");
 
+  k.loadSprite("trees", "./assets/game/trees.png", {
+    sliceX: 7,
+    sliceY: 2,
+    anims: {
+      "tree-1": { from: 0, to: 6, loop: true, speed: 8 },
+      "tree-2": { from: 7, to: 13, loop: true, speed: 8 },
+    }
+  });
+
   k.loadSprite("birds", "./assets/game/birds.png", {
     sliceX: 4,
     sliceY: 1,
@@ -62,4 +71,16 @@ export function loadSprites(k) {
       "fly": { from: 0, to: 3, loop: true, speed: 8 },
     }
   });
+
+  k.loadSprite("bears", "./assets/game/bears.png", {
+    sliceX: 4,
+    sliceY: 4,
+    anims: {
+      "idle-side": 0,
+      "walk-side": { from: 0, to: 3, loop: true, speed: 8 },
+      "jump": 14
+    }
+  });
+
+  k.loadSprite("ice-map", "./assets/game/ice-caps-map.png");
 }
