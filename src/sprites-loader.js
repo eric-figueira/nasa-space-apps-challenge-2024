@@ -42,4 +42,19 @@ export function loadSprites(k) {
   k.loadSprite("water", "./assets/game/water.png");
 
   k.loadSprite("classroom-map", "./assets/game/classroom.png");
+
+  k.loadSprite("desert-map", "./assets/game/desert-map.png");
+
+  k.loadSprite("foxes", "./assets/game/foxes.png", {
+    sliceX: 3,
+    sliceY: 3,
+    anims: {
+      "idle-down": 1,
+      "walk-down": { from: 0, to: 2, loop: true, speed: 8 },
+      "idle-up": 7,
+      "walk-up": { from: 6, to: 8, loop: true, speed: 8 },
+      "idle-side": 4,
+      "walk-side": { from: 3, to: 5, loop: true, speed: 8 },
+    }
+  });
 }

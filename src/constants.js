@@ -42,7 +42,12 @@ export const realDialogueData = {
   17: `As CO₂ levels increase in the atmosphere, more of it gets absorbed by the oceans, making the water more acidic and harming shellfish, corals, and other marine life.`,
   18: ` The frequency of extreme weather events, such as hurricanes, floods, and droughts, has increased due to climate change, affecting millions of people worldwide.`,
   19: ` Many species are being forced to migrate to new areas due to changing climate conditions, disrupting ecosystems and food chains. `,
-  20: `As the Arctic warms, permafrost—ground that has been frozen for centuries—is thawing, releasing stored carbon dioxide and methane, which accelerates global warming.`
+  20: `As the Arctic warms, permafrost—ground that has been frozen for centuries—is thawing, releasing stored carbon dioxide and methane, which accelerates global warming.`,
+  "heatwaves": "Have you noticed how heatwaves are becoming more frequent and intense? Global warming is affecting our public health in alarming ways. Cases of dehydration and heatstroke are on the rise, and the most vulnerable people are at risk.",
+  "record": "Did you know that 2023 was the hottest year on record since NASA started monitoring the climate with satellites? This is a clear sign that we need to act against climate change, or the future will be unsustainable.",
+  "crops": "The climate is changing, and that's a big problem for us. Changes in rainfall and temperature patterns are affecting our harvests. We are facing smaller harvests and more pests, and this impacts food security.",
+  "drought": "The situation in the Middle East and North Africa is critical. Extreme droughts are becoming more frequent, and water scarcity is a huge challenge for communities. We need sustainable solutions to manage our water resources. ",
+  "migration": "With climate change, many species are being forced to migrate to new habitats. This is creating an imbalance in ecosystems and food chains. We need to understand how these migrations are impacting the biodiversity that remains.",
 }
 
 export const quizData = [
