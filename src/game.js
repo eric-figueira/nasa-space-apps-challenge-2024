@@ -169,13 +169,6 @@ k.scene("main", async () => {
   // k.onKeyRelease(stopAnimation);
 });
 
-k.scene("lose", () => {
-	k.add([
-    k.text("You Lose. Press any key to play again."),
-	])
-	k.onKeyPress(() => k.go("cat"))
-})
-
 k.scene("cat", async () => {
   k.setGravity(2000);
 
@@ -336,7 +329,7 @@ k.scene("cat", async () => {
   });
 
   player.onCollide("water", () => {
-		k.go("lose");
+		k.go("lose", { backTo: "cat" });
 	})
 });
 
@@ -840,8 +833,35 @@ k.scene("forest", async () => {
 });
 
 k.scene("transition", async ({ conversation, nextScene }) => {
-  
+
+});
+
+k.scene("lose", async ({ backTo }) => {
+  k.add([
+		k.text("You lose!"),
+		k.pos(k.width() / 2, k.height() / 2 - 58),
+		k.scale(2),
+		k.anchor("center"),
+	]);
+
+  k.add([
+		k.text("Looks like the Climate Crisis' efects are not so easy to ignore, huh?"),
+		k.pos(k.width() / 2, k.height() / 2 + 58),
+		k.scale(0.75),
+		k.anchor("center"),
+	]);
+
+  k.add([
+		k.text("Press SPACE to play again."),
+		k.pos(k.width() / 2, k.height() / 2 + 138),
+		k.scale(1),
+		k.anchor("center"),
+	]);
+
+  console.log(backTo)
+
+  k.onKeyPress("space", () => k.go(backTo));
 });
 
 
-k.go("parking");
+k.go("cat");
