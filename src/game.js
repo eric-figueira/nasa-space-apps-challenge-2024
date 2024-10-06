@@ -755,6 +755,10 @@ k.scene("forest", async () => {
               player.isInDialogue = false;
             });
           })
+        } else {
+          player.onCollide(() => {
+            k.go("lose", { backTo: "forest" });
+          });
         }
       }
 
