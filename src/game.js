@@ -571,7 +571,7 @@ k.scene("parking", async () => {
   const map = k.add([
     k.sprite("parking"),
     k.pos(0),
-    k.scale(scaleFactor/4)
+    k.scale(scaleFactor / 2.5)
   ]);
 
   const player = k.make([
@@ -580,7 +580,7 @@ k.scene("parking", async () => {
     k.body(),
     k.anchor("center"),
     k.pos(),
-    k.scale(scaleFactor / 2),
+    k.scale(scaleFactor / 2.5),
     {
       speed: 350,
       direction: "up",
@@ -600,11 +600,13 @@ k.scene("parking", async () => {
         ]);
 
         if (boundary.name) {
-          if (boundary.name === "portal") {
-            player.onCollide("portal", () => {
-              k.go("main");
-            })
-          }
+          player.onCollide(boundary.name, () => {
+            player.isInDialogue = true;
+
+            displayDialog(realDialogueData[boundary.name], () => {
+              player.isInDialogue = false;
+            });
+          });
         }
       }
 
@@ -615,8 +617,8 @@ k.scene("parking", async () => {
       for (const entity of layer.objects) {
         if (entity.name === "player") {
           player.pos = k.vec2(
-            (map.pos.x + entity.x) * scaleFactor / 2,
-            (map.pos.y + entity.y) * scaleFactor / 2
+            (map.pos.x + entity.x) * scaleFactor / 2.5,
+            (map.pos.y + entity.y) * scaleFactor / 2.5
           );
           k.add(player);
 
@@ -641,7 +643,7 @@ k.scene("parking", async () => {
       k.isKeyDown("right"),
       k.isKeyDown("left"),
       k.isKeyDown("up"),
-      k.isKeyDown("space"),
+      k.isKeyDown("down"),
     ];
 
     let nbOfKeyPressed = 0;
@@ -673,17 +675,14 @@ k.scene("parking", async () => {
     if (keyMap[2]) {
       if (player.curAnim() !== "walk-up") player.play("walk-up");
       player.direction = "up";
+      player.move(0, -player.speed);
       return;
     }
 
     if (keyMap[3]) {
-      if (player.isGrounded()) {
-        if (player.curAnim() !== "jump") player.play("jump");
-        player.direction = "up";
-
-
-        player.jump(1100);
-      }
+      if (player.curAnim() !== "walk-down") player.play("walk-down");
+      player.direction = "down";
+      player.move(0, player.speed);
     }
   })
 
@@ -840,5 +839,9 @@ k.scene("forest", async () => {
   });
 });
 
+k.scene("transition", async ({ conversation, nextScene }) => {
+  
+});
 
-k.go("classroom", { isFinalScene: false });
+
+k.go("parking");

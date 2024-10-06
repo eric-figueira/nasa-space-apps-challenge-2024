@@ -21,14 +21,16 @@ export function loadSprites(k) {
   k.loadSprite("parking", "./assets/game/parking.png");
 
   k.loadSprite("cats", "./assets/game/cats.png", {
-    sliceX: 10,
-    sliceY: 5,
+    sliceX: 9,
+    sliceY: 6,
     anims: {
-      "idle-up": { from: 0, to: 9, loop: true, speed: 8 },
-      "walk-up": { from: 10, to: 19, loop: true, speed: 8 },
-      "idle-side": { from: 43, to: 49, loop: true, speed: 8 },
-      "walk-side": { from: 30, to: 37, loop: true, speed: 8 },
-      "jump": 26,
+      "idle-up": 8,
+      "walk-up": { from: 0, to: 7, loop: true, speed: 8 },
+      "idle-down": { from: 45, to: 53, loop: true, speed: 8 },
+      "walk-down": { from: 9, to: 16, loop: true, speed: 8 },
+      "idle-side": { from: 27, to: 35, loop: true, speed: 8 },
+      "walk-side": { from: 18, to: 25, loop: true, speed: 8 },
+      "jump": 40,
     }
   });
 
