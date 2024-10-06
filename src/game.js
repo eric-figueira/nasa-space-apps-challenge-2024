@@ -6,6 +6,22 @@ import { loadSprites } from "./sprites-loader";
 
 loadSprites(k);
 
+let forestSound = null
+
+let desertSound = null
+
+let iceSound = null
+
+let catSound = null
+
+let parkingSound = null
+
+let schoolSound = null
+
+let victory = null
+
+let gameover = null
+
 k.setBackground(k.Color.fromHex("#311047"));
 
 k.scene("main", async () => {
@@ -20,7 +36,7 @@ k.scene("main", async () => {
 
   const player = k.make([
     k.sprite("birds", { anim: "fly" }),
-    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10) }),
     k.body(),
     k.anchor("center"),
     k.pos(),
@@ -37,7 +53,7 @@ k.scene("main", async () => {
     if (layer.name === "boundaries") {
       for (const boundary of layer.objects) {
         map.add([
-          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height)}),
+          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height) }),
           k.body({ isStatic: true }),
           k.pos(boundary.x, boundary.y),
           boundary.name,
@@ -82,7 +98,7 @@ k.scene("main", async () => {
   });
 
   k.onMouseDown((mouseBtn) => {
-    if (mouseBtn !== "left" || player.isInDialogue) 
+    if (mouseBtn !== "left" || player.isInDialogue)
       return;
 
     const worldMousePos = k.toWorld(k.mousePos());
@@ -170,10 +186,12 @@ k.scene("main", async () => {
 });
 
 k.scene("cat", async ({ hasConversation }) => {
-  const sound = k.play("catSound", {
-    volume: 0.2,
-    loop: true
-  })
+  try {
+    parkingSound.stop()
+  }
+  catch { }
+
+  catSound = k.play("catSound", { volume: 0.1, loop: true })
 
   k.setGravity(2000);
 
@@ -188,7 +206,7 @@ k.scene("cat", async ({ hasConversation }) => {
 
   const player = k.make([
     k.sprite("cats", { anim: "idle-up" }),
-    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10) }),
     k.body(),
     k.anchor("center"),
     k.pos(),
@@ -205,7 +223,7 @@ k.scene("cat", async ({ hasConversation }) => {
     if (layer.name === "boundaries") {
       for (const boundary of layer.objects) {
         map.add([
-          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height)}),
+          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height) }),
           k.body({ isStatic: true }),
           k.pos(boundary.x, boundary.y),
           boundary.name,
@@ -214,14 +232,13 @@ k.scene("cat", async ({ hasConversation }) => {
         if (boundary.name) {
           if (boundary.name === "portal") {
             player.onCollide("portal", () => {
-              sound.stop()
               k.go("transition", { conversation: post_cat_level_conversation, nextScene: "forest" })
             })
           }
 
           player.onBeforePhysicsResolve(collision => {
             if (collision.target.is(boundary.name) && player.isJumping()) {
-                collision.preventResolution()
+              collision.preventResolution()
             }
           })
         }
@@ -320,7 +337,7 @@ k.scene("cat", async ({ hasConversation }) => {
 
   const water = k.add([
     k.sprite("water"),
-    k.area({ shape: new k.Rect(k.vec2(0, 0), mapData.height * mapData.tileheight,  mapData.width * mapData.tilewidth)}),
+    k.area({ shape: new k.Rect(k.vec2(0, 0), mapData.height * mapData.tileheight, mapData.width * mapData.tilewidth) }),
     k.anchor("topleft"),
     k.pos(0, mapData.height * mapData.tileheight * 2),
     k.scale(scaleFactor * 1.5),
@@ -345,15 +362,13 @@ k.scene("cat", async ({ hasConversation }) => {
   }
 
   player.onCollide("water", () => {
-		k.go("lose", { backTo: "cat" });
-	});
+    k.go("lose", { backTo: "cat" });
+  });
 });
 
 k.scene("classroom", async ({ isFinalScene }) => {
-  const sound = k.play("schoolSound", {
-    volume: 0.2,
-    loop: true
-  })
+
+  schoolSound = k.play("schoolSound", { volume: 0.2, loop: true })
 
   const mapData = await (await fetch("./assets/game/classroom.json")).json();
   const layers = mapData.layers;
@@ -365,7 +380,7 @@ k.scene("classroom", async ({ isFinalScene }) => {
   ]);
 
   const player = k.make([
-    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10) }),
     k.body(),
     k.anchor("center"),
     k.pos(),
@@ -394,9 +409,8 @@ k.scene("classroom", async ({ isFinalScene }) => {
       displayConversation(final_conversation, () => {
         window.location.href = "/public/quiz";
       });
-    }  else {
+    } else {
       displayConversation(initial_conversation, () => {
-        sound.stop()
         k.go("parking", { hasConversation: true });
       });
     }
@@ -414,10 +428,12 @@ k.scene("classroom", async ({ isFinalScene }) => {
 });
 
 k.scene("desert", async ({ hasConversation }) => {
-  const sound = k.play("desertSound", {
-    volume: 0.2,
-    loop: true
-  })
+  try {
+    forestSound.stop()
+  }
+  catch {}
+
+  desertSound = k.play("desertSound", { volume: 0.2, loop: true })
 
   const mapData = await (await fetch("./assets/game/desert-map.json")).json();
   const layers = mapData.layers;
@@ -430,7 +446,7 @@ k.scene("desert", async ({ hasConversation }) => {
 
   const player = k.make([
     k.sprite("foxes", { anim: "idle-side" }),
-    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10) }),
     k.body(),
     k.anchor("center"),
     k.pos(),
@@ -457,7 +473,7 @@ k.scene("desert", async ({ hasConversation }) => {
     if (layer.name === "boundaries") {
       for (const boundary of layer.objects) {
         map.add([
-          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height)}),
+          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height) }),
           k.body({ isStatic: true }),
           k.pos(boundary.x, boundary.y),
           boundary.name,
@@ -466,7 +482,6 @@ k.scene("desert", async ({ hasConversation }) => {
         if (boundary.name) {
           player.onCollide(boundary.name, () => {
             if (boundary.name === "final") {
-              sound.stop()
               k.go("transition", { conversation: post_desert_level_conversation, nextScene: "classroom" })
             } else {
               player.isInDialogue = true;
@@ -572,10 +587,12 @@ k.scene("desert", async ({ hasConversation }) => {
 });
 
 k.scene("parking", async () => {
-  const sound = k.play("parkingSound", {
-    volume: 0.2,
-    loop: true
-  })
+  try {
+    schoolSound.stop()
+  }
+  catch { }
+
+  parkingSound = k.play("parkingSound", { volume: 0.2, loop: true })
 
   const mapData = await (await fetch("./assets/game/parking.json")).json();
   const layers = mapData.layers;
@@ -588,7 +605,7 @@ k.scene("parking", async () => {
 
   const player = k.make([
     k.sprite("cats", { anim: "idle-up" }),
-    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10) }),
     k.body(),
     k.anchor("center"),
     k.pos(),
@@ -605,7 +622,7 @@ k.scene("parking", async () => {
     if (layer.name === "boundaries") {
       for (const boundary of layer.objects) {
         map.add([
-          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height)}),
+          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height) }),
           k.body({ isStatic: true }),
           k.pos(boundary.x, boundary.y),
           boundary.name,
@@ -619,7 +636,6 @@ k.scene("parking", async () => {
               player.isInDialogue = false;
 
               if (boundary.name === "loss") {
-                sound.stop()
                 k.go("cat", { hasConversation: true })
               }
             });
@@ -729,10 +745,10 @@ k.scene("parking", async () => {
 k.scene("forest", async ({ hasConversation }) => {
   k.setGravity(0);
 
-  const sound = k.play("forestSound", {
-    volume: 0.2,
-    loop: true
-  })
+  try {
+    catSound.stop()
+  } catch { }
+  forestSound = k.play("forestSound", { volume: 0.1, loop: true })
 
   const mapData = await (await fetch("./assets/game/maze-of-trees.json")).json();
   const layers = mapData.layers;
@@ -745,9 +761,9 @@ k.scene("forest", async ({ hasConversation }) => {
 
   const player = k.make([
     k.sprite("birds", { anim: "fly" }),
-    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10) }),
     k.body(),
-    k.anchor("center"),
+    k.anchor("topright"),
     k.pos(),
     k.scale(scaleFactor / 2),
     {
@@ -772,7 +788,7 @@ k.scene("forest", async ({ hasConversation }) => {
     if (layer.name === "boundaries") {
       for (const boundary of layer.objects) {
         map.add([
-          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height)}),
+          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height) }),
           k.body({ isStatic: true }),
           k.pos(boundary.x, boundary.y),
           boundary.name,
@@ -781,7 +797,6 @@ k.scene("forest", async ({ hasConversation }) => {
         if (boundary.name) {
           player.onCollide(boundary.name, () => {
             if (boundary.name === "final") {
-              sound.stop()
               k.go("desert", { hasConversation: true })
             } else {
               player.isInDialogue = true;
@@ -890,10 +905,11 @@ k.scene("forest", async ({ hasConversation }) => {
 });
 
 k.scene("ice", async ({ hasConversation }) => {
-  const sound = k.play("iceSound", {
-    volume: 0.2,
-    loop: true
-  })
+  try {
+    schoolSound.stop()
+  }
+  catch { }
+  iceSound = k.play("iceSound", { volume: 0.2, loop: true })
 
   const mapData = await (await fetch("./assets/game/ice-caps-map.json")).json();
   const layers = mapData.layers;
@@ -906,7 +922,7 @@ k.scene("ice", async ({ hasConversation }) => {
 
   const player = k.make([
     k.sprite("bears", { anim: "idle-side" }),
-    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10) }),
     k.body({ jumpForce: 1000 }),
     k.anchor("center"),
     k.pos(),
@@ -933,7 +949,7 @@ k.scene("ice", async ({ hasConversation }) => {
     if (layer.name === "boundaries") {
       for (const boundary of layer.objects) {
         map.add([
-          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height)}),
+          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height) }),
           k.body({ isStatic: true }),
           k.pos(boundary.x, boundary.y),
           boundary.name,
@@ -957,7 +973,6 @@ k.scene("ice", async ({ hasConversation }) => {
               player.isInDialogue = false;
             });
 
-            sound.stop()
             k.go("transition", { conversation: post_ice_level_conversation, nextScene: "parking" });
           })
         } else {
@@ -1055,10 +1070,16 @@ k.scene("ice", async ({ hasConversation }) => {
 });
 
 k.scene("transition", async ({ conversation, nextScene }) => {
-  const sound = k.play("victory", {
-    volume: 0.2,
-    loop: false
-  });
+  try {
+    desertSound.stop()
+    catSound.stop()
+    iceSound.stop()
+    schoolSound.stop()
+    parkingSound.stop()
+  }
+  catch { }
+
+  victory = k.play("victory", { volume: 0.2, loop: false })
 
   if (nextScene === "classroom") {
     displayConversation(conversation, () => {
@@ -1066,40 +1087,36 @@ k.scene("transition", async ({ conversation, nextScene }) => {
     });
   } else {
     displayConversation(conversation, () => {
-      sound.stop()
       k.go(nextScene, { hasConversation: true });
     });
   }
 });
 
 k.scene("lose", async ({ backTo }) => {
-  k.play("gameover", {
-    volume: 0.2,
-    loop: false
-  })
+  gameover = k.play("gameover", { volume: 0.2, loop: false })
 
   k.add([
-		k.text("You lose!"),
-		k.pos(k.width() / 2, k.height() / 2 - 58),
-		k.scale(2),
-		k.anchor("center"),
-	]);
+    k.text("You lose!"),
+    k.pos(k.width() / 2, k.height() / 2 - 58),
+    k.scale(2),
+    k.anchor("center"),
+  ]);
 
   k.add([
-		k.text("Looks like the Climate Crisis' efects are not so easy to ignore, huh?"),
-		k.pos(k.width() / 2, k.height() / 2 + 58),
-		k.scale(0.75),
-		k.anchor("center"),
-	]);
+    k.text("Looks like the Climate Crisis' efects are not so easy to ignore, huh?"),
+    k.pos(k.width() / 2, k.height() / 2 + 58),
+    k.scale(0.75),
+    k.anchor("center"),
+  ]);
 
   k.add([
-		k.text("Press SPACE to play again."),
-		k.pos(k.width() / 2, k.height() / 2 + 138),
-		k.scale(1),
-		k.anchor("center"),
-	]);
+    k.text("Press SPACE to play again."),
+    k.pos(k.width() / 2, k.height() / 2 + 138),
+    k.scale(1),
+    k.anchor("center"),
+  ]);
 
-  k.onKeyPress("space", () => { 
+  k.onKeyPress("space", () => {
     k.go(backTo, { hasConversation: false })
   });
 });

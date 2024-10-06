@@ -92,7 +92,7 @@ export function loadSprites(k) {
 
   k.loadSound("catSound", "./assets/audios/map2.mp3");
 
-  k.loadSound("parkingSound", "./assets/audios/map1.mp3");
+  k.loadSound("parkingSound", "./assets/audios/school.mp3");
 
   k.loadSound("schoolSound", "./assets/audios/school.mp3");
 
