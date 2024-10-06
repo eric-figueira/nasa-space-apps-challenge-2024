@@ -29,3 +29,47 @@ export function displayDialog(text, onDisplayEnd) {
 
   close.addEventListener("click", handleClose);
 }
+
+export function displayConversation(conversation, onConversationEnd) {
+  const ui       = document.getElementById("conversation-container");
+  const dialogue = document.getElementById("conversation-dialogue");
+  const next     = document.getElementById("next");
+
+  ui.style.display = "block";
+
+  let textIndex = 0;
+
+  function displayText(text) {
+    let index = 0;
+    let current = "";
+
+    const invervalRef = setInterval(() => {
+      if (index < text.length) {
+        current += text[index];
+        dialogue.innerHTML = current;
+        index++;
+        return;
+      }
+  
+      clearInterval(invervalRef);
+    }, 5);
+  }
+
+  function handleNext() {
+    dialogue.innerHTML = "";
+    
+    textIndex++;
+    if (textIndex === conversation.length) {
+      ui.style.display = "none";
+      dialogue.innerHTML = "";
+
+      onConversationEnd();
+    }
+
+    displayText(conversation[textIndex]);
+  }
+
+  displayText(conversation[textIndex]);
+
+  next.addEventListener("click", handleNext);
+}

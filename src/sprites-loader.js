@@ -40,4 +40,6 @@ export function loadSprites(k) {
   });
 
   k.loadSprite("water", "./assets/game/water.png");
+
+  k.loadSprite("classroom-map", "./assets/game/classroom.png");
 }

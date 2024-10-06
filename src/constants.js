@@ -96,4 +96,17 @@ export const quizData = [
     answer: 'Reduce the habitats available to many species',
     answers: ['They increase the number of species', 'Reduce the habitats available to many species', ' Improve soil quality', 'They have no significant impact']
   },
-]
+];
+
+export const conversation = [
+  "Teacher - Good morning, students! How was your weekend?",
+  "Elon - Good morning, professor! The weekend was nice, but it was so hot and dry that my eyes and throat felt irritated.",
+  "Teacher - I know. The temperatures have been extremely high, and the air quality is really poor due to the lack of rain. That’s why today we’re going to study how human activities have impacted the global climate, and the greenhouse effect on Earth, which is causing global warming. But first, let’s understand a bit about what the greenhouse effect is.",
+  "Teacher - The greenhouse effect is a natural process that keeps the heat from the sun trapped at the Earth's surface, raising the average temperature of our planet. Imagine Earth as a greenhouse for plants. Sunlight enters the atmosphere, heats the surface, and some of that heat escapes back into space. However, certain gases in the atmosphere, like carbon dioxide, methane, ozone, and nitrous oxide, trap some of that heat. These gases, called greenhouse gases, act like the glass of a greenhouse, letting sunlight in but keeping the heat from escaping.",
+  "Elon - But professor, isn’t it bad to increase the Earth’s temperature?",
+  "Teacher - In balance, no. The natural greenhouse effect keeps Earth warm enough for life to exist. The problem is that we are releasing much more of these greenhouse gases. Since the start of the industrial age, atmospheric CO₂ levels have increased by 45%. Over 95% of global warming is directly linked to human actions, like burning fossil fuels and deforestation. This excess of gases increases the warming, leading to climate change. Right now, carbon dioxide (CO₂) is the most significant greenhouse gas contributing to Earth’s rising temperature. Due to its importance, NASA's OCO-2 satellite monitors the global distribution of CO₂, helping scientists track where carbon is being emitted and where it is being absorbed.",
+  "Elon - Oh! So the problem is that we’re 'trapping' too much heat by releasing more and more of these gases into the atmosphere?",
+  "Teacher - Exactly! And that’s causing the polar ice caps to melt, sea levels to rise, and extreme weather events to become more frequent. To help us understand the consequences better, I’ve brought some ultra-advanced augmented reality immersion devices that will transport us to scenarios of extreme climate events! The devices are already on each of your desks.",
+  "Elon - Whoa, that’s awesome!",
+  "Teacher - The first extreme climate event we’ll explore is the melting of the polar ice caps, caused by rising temperatures at the poles. Did you know that the Arctic is warming more than twice as fast as the global average? That’s why its ice is melting so quickly. The poles are among the most affected regions by global warming. Now, let’s explore this reality up close! Equip your devices!",
+];

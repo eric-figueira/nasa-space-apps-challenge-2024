@@ -1,6 +1,6 @@
 import { k } from "./kaboom-context";
-import { scaleFactor, dialogueData } from "./constants";
-import { displayDialog } from "./dialogue";
+import { scaleFactor, dialogueData, conversation } from "./constants";
+import { displayDialog, displayConversation } from "./dialogue";
 import { setCamScale } from "./camera";
 import { loadSprites } from "./sprites-loader";
 
@@ -342,5 +342,57 @@ k.scene("cat", async () => {
 	})
 });
 
+k.scene("classroom", async () => {
+  const mapData = await (await fetch("./assets/game/classroom.json")).json();
+  const layers = mapData.layers;
 
-k.go("cat");
+  const map = k.add([
+    k.sprite("classroom-map"),
+    k.pos(0),
+    k.scale(scaleFactor / 6)
+  ]);
+
+  const player = k.make([
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.body(),
+    k.anchor("center"),
+    k.pos(),
+    k.scale(scaleFactor / 6),
+    "player"
+  ]);
+
+  for (const layer of layers) {
+    if (layer.name === "spawnpoint") {
+      for (const entity of layer.objects) {
+        if (entity.name === "player") {
+          player.pos = k.vec2(
+            (map.pos.x + entity.x) * scaleFactor / 6,
+            (map.pos.y + entity.y) * scaleFactor / 6
+          );
+          k.add(player);
+
+          continue;
+        }
+      }
+    }
+  }
+
+  k.wait(3, () => {
+    displayConversation(conversation, () => {
+      k.go("cat");
+    });
+  });
+
+  setCamScale(k);
+
+  k.onResize(() => {
+    setCamScale(k);
+  });
+
+  k.onUpdate(() => {
+    k.camPos(player.pos.x, player.pos.y - 100);
+  });
+});
+
+
+k.go("classroom");
