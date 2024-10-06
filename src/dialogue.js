@@ -66,11 +66,13 @@ export function displayConversation(conversation, onConversationEnd) {
       onConversationEnd();
       return;
     }
-
-    displayText(conversation[textIndex]);
+    
+    if (textIndex < conversation.length)
+      displayText(conversation[textIndex]);
   }
 
-  displayText(conversation[textIndex]);
+  if (textIndex < conversation.length)
+    displayText(conversation[textIndex]);
 
   next.addEventListener("click", handleNext);
 }

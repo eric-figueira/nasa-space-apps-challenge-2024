@@ -1,5 +1,5 @@
 import { k } from "./kaboom-context";
-import { scaleFactor, dialogueData, initial_conversation, final_conversation, realDialogueData, pre_ice_level_conversation, pre_parking_scene_conversation } from "./constants";
+import { scaleFactor, dialogueData, initial_conversation, final_conversation, realDialogueData, pre_ice_level_conversation, pre_parking_scene_conversation, post_ice_level_conversation, pre_cat_level_conversation, post_cat_level_conversation, pre_forest_level_conversation, pre_desert_level_conversation, post_desert_level_conversation } from "./constants";
 import { displayDialog, displayConversation } from "./dialogue";
 import { setCamScale } from "./camera";
 import { loadSprites } from "./sprites-loader";
@@ -169,8 +169,8 @@ k.scene("main", async () => {
   // k.onKeyRelease(stopAnimation);
 });
 
-k.scene("cat", async () => {
-  k.play("catSound", {
+k.scene("cat", async ({ hasConversation }) => {
+  const sound = k.play("catSound", {
     volume: 0.2,
     loop: true
   })
@@ -196,7 +196,7 @@ k.scene("cat", async () => {
     {
       speed: 350,
       direction: "up",
-      isInDialogue: false
+      isInDialogue: hasConversation ? true : false
     },
     "player"
   ])
@@ -214,7 +214,8 @@ k.scene("cat", async () => {
         if (boundary.name) {
           if (boundary.name === "portal") {
             player.onCollide("portal", () => {
-              k.go("main");
+              sound.stop()
+              k.go("transition", { conversation: post_cat_level_conversation, nextScene: "forest" })
             })
           }
 
@@ -329,9 +330,19 @@ k.scene("cat", async () => {
     "water"
   ]);
 
-  k.loop(0.25, () => {
-    water.pos.y = water.pos.y - water.speed;
-  });
+  if (hasConversation) {
+    displayConversation(pre_cat_level_conversation, () => {
+      player.isInDialogue = false
+
+      k.loop(0.25, () => {
+        water.pos.y = water.pos.y - water.speed;
+      });
+    });
+  } else {
+    k.loop(0.25, () => {
+      water.pos.y = water.pos.y - water.speed;
+    });
+  }
 
   player.onCollide("water", () => {
 		k.go("lose", { backTo: "cat" });
@@ -339,7 +350,7 @@ k.scene("cat", async () => {
 });
 
 k.scene("classroom", async ({ isFinalScene }) => {
-  k.play("schoolSound", {
+  const sound = k.play("schoolSound", {
     volume: 0.2,
     loop: true
   })
@@ -385,7 +396,8 @@ k.scene("classroom", async ({ isFinalScene }) => {
       });
     }  else {
       displayConversation(initial_conversation, () => {
-        k.go("transition", { conversation: pre_ice_level_conversation, nextScene: "ice" });
+        sound.stop()
+        k.go("parking", { hasConversation: true });
       });
     }
   });
@@ -401,8 +413,8 @@ k.scene("classroom", async ({ isFinalScene }) => {
   });
 });
 
-k.scene("desert", async () => {
-  k.play("desertSound", {
+k.scene("desert", async ({ hasConversation }) => {
+  const sound = k.play("desertSound", {
     volume: 0.2,
     loop: true
   })
@@ -426,7 +438,7 @@ k.scene("desert", async () => {
     {
       speed: 250,
       direction: "right",
-      isInDialogue: false
+      isInDialogue: true
     },
     "player"
   ]);
@@ -453,11 +465,16 @@ k.scene("desert", async () => {
 
         if (boundary.name) {
           player.onCollide(boundary.name, () => {
-            player.isInDialogue = true;
+            if (boundary.name === "final") {
+              sound.stop()
+              k.go("transition", { conversation: post_desert_level_conversation, nextScene: "classroom" })
+            } else {
+              player.isInDialogue = true;
 
-            displayDialog(realDialogueData[boundary.name], () => {
-              player.isInDialogue = false;
-            });
+              displayDialog(realDialogueData[boundary.name], () => {
+                player.isInDialogue = false;
+              });
+            }
           })
         }
       }
@@ -480,29 +497,11 @@ k.scene("desert", async () => {
     }
   }
 
-  // k.onMouseDown((mouseBtn) => {
-  //   if (mouseBtn !== "left" || player.isInDialogue) 
-  //     return;
-
-  //   const worldMousePos = k.toWorld(k.mousePos());
-  //   player.moveTo(worldMousePos, player.speed);
-
-  //   const mouseAngle = player.pos.angle(worldMousePos);
-
-  //   if (Math.abs(mouseAngle) > 90) {
-  //     player.flipX = false;
-  //     player.direction = "right";
-
-  //     return;
-  //   }
-
-  //   if (Math.abs(mouseAngle) < 90) {
-  //     player.flipX = true;
-  //     player.direction = "left";
-
-  //     return;
-  //   }
-  // });
+  if (hasConversation) {
+    displayConversation(pre_desert_level_conversation, () => {
+      player.isInDialogue = false
+    });
+  }
 
   k.onKeyDown((key) => {
     const keyMap = [
@@ -573,7 +572,7 @@ k.scene("desert", async () => {
 });
 
 k.scene("parking", async () => {
-  k.play("parkingSound", {
+  const sound = k.play("parkingSound", {
     volume: 0.2,
     loop: true
   })
@@ -618,6 +617,11 @@ k.scene("parking", async () => {
 
             displayDialog(realDialogueData[boundary.name], () => {
               player.isInDialogue = false;
+
+              if (boundary.name === "loss") {
+                sound.stop()
+                k.go("cat", { hasConversation: true })
+              }
             });
           });
         }
@@ -722,8 +726,10 @@ k.scene("parking", async () => {
   k.onKeyRelease(stopAnimation);
 });
 
-k.scene("forest", async () => {
-  k.play("forestSound", {
+k.scene("forest", async ({ hasConversation }) => {
+  k.setGravity(0);
+
+  const sound = k.play("forestSound", {
     volume: 0.2,
     loop: true
   })
@@ -747,7 +753,7 @@ k.scene("forest", async () => {
     {
       speed: 450,
       direction: "right",
-      isInDialogue: false
+      isInDialogue: hasConversation ? true : false
     },
     "player"
   ]);
@@ -774,14 +780,19 @@ k.scene("forest", async () => {
 
         if (boundary.name) {
           player.onCollide(boundary.name, () => {
-            player.isInDialogue = true;
+            if (boundary.name === "final") {
+              sound.stop()
+              k.go("desert", { hasConversation: true })
+            } else {
+              player.isInDialogue = true;
 
-            displayDialog(realDialogueData[boundary.name], () => {
-              player.isInDialogue = false;
-            });
+              displayDialog(realDialogueData[boundary.name], () => {
+                player.isInDialogue = false;
+              });
+            }
           })
         } else {
-          player.onCollide(() => {
+          player.onCollide("", () => {
             k.go("lose", { backTo: "forest" });
           });
         }
@@ -823,6 +834,12 @@ k.scene("forest", async () => {
         }
       }
     }
+  }
+
+  if (hasConversation) {
+    displayConversation(pre_forest_level_conversation, () => {
+      player.isInDialogue = false
+    })
   }
 
   k.onKeyDown((key) => {
@@ -870,8 +887,8 @@ k.scene("forest", async () => {
   });
 });
 
-k.scene("ice", async () => {
-  k.play("iceSound", {
+k.scene("ice", async ({ hasConversation }) => {
+  const sound = k.play("iceSound", {
     volume: 0.2,
     loop: true
   })
@@ -895,7 +912,7 @@ k.scene("ice", async () => {
     {
       speed: 450,
       direction: "right",
-      isInDialogue: false
+      isInDialogue: true
     },
     "player"
   ]);
@@ -922,15 +939,28 @@ k.scene("ice", async () => {
 
         if (boundary.name) {
           player.onCollide(boundary.name, () => {
+            // if (boundary.name === "portal") {
+            //   k.go("transition", { conversation: post_ice_level_conversation, nextScene: "parking" })
+            // } else {
+            //   player.isInDialogue = true;
+
+            //   displayDialog(realDialogueData[boundary.name], () => {
+            //     player.isInDialogue = false;
+            //   });
+            // }
+
             player.isInDialogue = true;
 
             displayDialog(realDialogueData[boundary.name], () => {
               player.isInDialogue = false;
             });
+
+            sound.stop()
+            k.go("transition", { conversation: post_ice_level_conversation, nextScene: "parking" });
           })
         } else {
           player.onCollide("water", () => {
-            k.go("lose", { backTo: "cat" });
+            k.go("lose", { backTo: "ice" });
           });
         }
       }
@@ -951,6 +981,12 @@ k.scene("ice", async () => {
         }
       }
     }
+  }
+
+  if (hasConversation) {
+    displayConversation(pre_ice_level_conversation, () => {
+      player.isInDialogue = false
+    })
   }
 
   k.onKeyDown((key) => {
@@ -1017,14 +1053,21 @@ k.scene("ice", async () => {
 });
 
 k.scene("transition", async ({ conversation, nextScene }) => {
-  k.play("victory", {
+  const sound = k.play("victory", {
     volume: 0.2,
     loop: false
-  })
-
-  displayConversation(conversation, () => {
-    k.go(nextScene);
   });
+
+  if (nextScene === "classroom") {
+    displayConversation(conversation, () => {
+      k.go(nextScene, { isFinalScene: true });
+    });
+  } else {
+    displayConversation(conversation, () => {
+      sound.stop()
+      k.go(nextScene, { hasConversation: true });
+    });
+  }
 });
 
 k.scene("lose", async ({ backTo }) => {
@@ -1054,11 +1097,11 @@ k.scene("lose", async ({ backTo }) => {
 		k.anchor("center"),
 	]);
 
-  console.log(backTo)
-
-  k.onKeyPress("space", () => k.go(backTo));
+  k.onKeyPress("space", () => { 
+    k.go(backTo, { hasConversation: false })
+  });
 });
 
 
-// k.go("classroom", { isFinalScene: false });
-k.go("forest");
+k.go("classroom", { isFinalScene: false });
+// k.go("parking", { hasConversation: true });

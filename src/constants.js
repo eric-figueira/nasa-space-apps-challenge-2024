@@ -132,11 +132,38 @@ export const pre_ice_level_conversation = [
   "Mission - The Arctic is warming more than twice as fast as the global average, causing the ice to melt rapidly. Reach the other side of the map, but be careful not to fall into the icy waters!"
 ];
 
+export const post_ice_level_conversation = [
+  "The melting of the glaciers was only the beginning. The impact is spreading around the world, and sea levels continue to rise. Now, in a new form, you'll have to face this next threat."
+]
+
 export const pre_parking_scene_conversation = [
   "Teacher - Now that you've faced the melting glaciers in the Arctic, let's explore one of the main consequences of this process: sea level rise.",
   "Teacher - Sea level rise is caused by two main factors. The first is the melting of glaciers and polar ice caps, which adds more water to the oceans. The second is thermal expansion – when ocean water warms, it expands, taking up more space.",
   "Teacher - Both factors are linked to global warming, and the consequences are serious. Coastal cities, islands, and even large urban areas, like this one, are at risk of being submerged."
 ];
+
+export const pre_cat_level_conversation = [
+  "Mission - Watch out! It looks like a flood is about to start. Escape to the top of the building!"
+]
+
+export const post_cat_level_conversation = [
+  "Elon - Whew! That was a close one!",
+  "After surviving the dangers of the rising waters, a new threat looms in the forests. Be prepared to face this new challenge."
+]
+
+export const pre_forest_level_conversation = [
+  "Teacher - You've survived the threat of rising waters, but now a new crisis is looming. As the world heats up, it's not just the waters that are in danger... fire is consuming the forests.",
+  "Teacher - The forests are becoming mazes of fire and ash. Your challenge now is to go through a world consumed by forest fires and learn how global warming is turning the planet's lungs into ashes."
+]
+
+export const pre_desert_level_conversation = [
+  "Teacher - After experiencing melting glaciers in the Arctic, rising sea levels in cities and forest fires. Now we face the challenges that come with water scarcity. With the increasing frequency of droughts, agriculture is at risk and many ecosystems are disintegrating.",
+  "Teacher - To avoid dying of dehydration, be prepared to find water in a desert that once flourished with life."
+]
+
+export const post_desert_level_conversation = [
+  "Congratulations! You've made it through all four challenges caused by global warming. I hope you've learned a lot from this experience. Now remove the devices."
+]
 
 export const final_conversation = [
   "Teacher - So, everyone! How was the experience of exploring and learning more about each of these four extreme weather events?",
