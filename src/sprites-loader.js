@@ -27,6 +27,8 @@ export function loadSprites(k) {
 
   k.loadSprite("cat-map", "./assets/game/cat-level-map.png");
 
+  k.loadSprite("parking", "./assets/game/parking.png");
+
   k.loadSprite("cats", "./assets/game/cats.png", {
     sliceX: 10,
     sliceY: 5,

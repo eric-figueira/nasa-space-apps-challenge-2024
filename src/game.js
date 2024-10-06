@@ -558,5 +558,147 @@ k.scene("desert", async () => {
   k.onKeyRelease(stopAnimation);
 });
 
+k.scene("parking", async () => {
+  const mapData = await (await fetch("./assets/game/parking.json")).json();
+  const layers = mapData.layers;
 
-k.go("desert");
+  const map = k.add([
+    k.sprite("parking"),
+    k.pos(0),
+    k.scale(scaleFactor/4)
+  ]);
+
+  const player = k.make([
+    k.sprite("cats", { anim: "idle-up" }),
+    k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
+    k.body(),
+    k.anchor("center"),
+    k.pos(),
+    k.scale(scaleFactor / 2),
+    {
+      speed: 350,
+      direction: "up",
+      isInDialogue: false
+    },
+    "player"
+  ])
+
+  for (const layer of layers) {
+    if (layer.name === "boundaries") {
+      for (const boundary of layer.objects) {
+        map.add([
+          k.area({ shape: new k.Rect(k.vec2(0), boundary.width, boundary.height)}),
+          k.body({ isStatic: true }),
+          k.pos(boundary.x, boundary.y),
+          boundary.name,
+        ]);
+
+        if (boundary.name) {
+          if (boundary.name === "portal") {
+            player.onCollide("portal", () => {
+              k.go("main");
+            })
+          }
+        }
+      }
+
+      continue;
+    }
+
+    if (layer.name === "spawnpoint") {
+      for (const entity of layer.objects) {
+        if (entity.name === "player") {
+          player.pos = k.vec2(
+            (map.pos.x + entity.x) * scaleFactor / 2,
+            (map.pos.y + entity.y) * scaleFactor / 2
+          );
+          k.add(player);
+
+          continue;
+        }
+      }
+    }
+  }
+
+  setCamScale(k);
+
+  k.onResize(() => {
+    setCamScale(k);
+  });
+
+  k.onUpdate(() => {
+    k.camPos(player.pos.x, player.pos.y);
+  });
+
+  k.onKeyDown((key) => {
+    const keyMap = [
+      k.isKeyDown("right"),
+      k.isKeyDown("left"),
+      k.isKeyDown("up"),
+      k.isKeyDown("space"),
+    ];
+
+    let nbOfKeyPressed = 0;
+    for (const key of keyMap) {
+      if (key) {
+        nbOfKeyPressed++;
+      }
+    }
+
+    if (nbOfKeyPressed > 1) return;
+    if (player.isInDialogue) return;
+
+    if (keyMap[0]) {
+      player.flipX = false;
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
+      player.direction = "right";
+      player.move(player.speed, 0);
+      return;
+    }
+
+    if (keyMap[1]) {
+      player.flipX = true;
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
+      player.direction = "left";
+      player.move(-player.speed, 0);
+      return;
+    }
+
+    if (keyMap[2]) {
+      if (player.curAnim() !== "walk-up") player.play("walk-up");
+      player.direction = "up";
+      return;
+    }
+
+    if (keyMap[3]) {
+      if (player.isGrounded()) {
+        if (player.curAnim() !== "jump") player.play("jump");
+        player.direction = "up";
+
+
+        player.jump(1100);
+      }
+    }
+  })
+
+  function stopAnimation() {
+    if (player.direction === "down") {
+      player.play("idle-down");
+
+      return;
+    }
+
+    if (player.direction === "up") {
+      player.play("idle-up");
+
+      return;
+    }
+
+    player.play("idle-side");
+  }
+
+  k.onKeyRelease(stopAnimation);
+});
+
+
+k.go("parking");
