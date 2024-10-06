@@ -1,5 +1,5 @@
 import { k } from "./kaboom-context";
-import { scaleFactor, dialogueData, conversation, realDialogueData } from "./constants";
+import { scaleFactor, dialogueData, initial_conversation, final_conversation, realDialogueData } from "./constants";
 import { displayDialog, displayConversation } from "./dialogue";
 import { setCamScale } from "./camera";
 import { loadSprites } from "./sprites-loader";
@@ -340,7 +340,7 @@ k.scene("cat", async () => {
 	})
 });
 
-k.scene("classroom", async () => {
+k.scene("classroom", async ({ isFinalScene }) => {
   const mapData = await (await fetch("./assets/game/classroom.json")).json();
   const layers = mapData.layers;
 
@@ -376,9 +376,15 @@ k.scene("classroom", async () => {
   }
 
   k.wait(3, () => {
-    displayConversation(conversation, () => {
-      k.go("cat");
-    });
+    if (isFinalScene) {
+      displayConversation(final_conversation, () => {
+        window.location.href = "/public/quiz";
+      });
+    }  else {
+      displayConversation(initial_conversation, () => {
+        k.go("cat");
+      });
+    }
   });
 
   setCamScale(k);
@@ -700,7 +706,6 @@ k.scene("parking", async () => {
   k.onKeyRelease(stopAnimation);
 });
 
-
 k.scene("forest", async () => {
   const mapData = await (await fetch("./assets/game/maze-of-trees.json")).json();
   const layers = mapData.layers;
@@ -836,4 +841,4 @@ k.scene("forest", async () => {
 });
 
 
-k.go("forest");
+k.go("classroom", { isFinalScene: false });

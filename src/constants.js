@@ -108,7 +108,7 @@ export const quizData = [
   },
 ];
 
-export const conversation = [
+export const initial_conversation = [
   "Teacher - Good morning, students! How was your weekend?",
   "Elon - Good morning, professor! The weekend was nice, but it was so hot and dry that my eyes and throat felt irritated.",
   "Teacher - I know. The temperatures have been extremely high, and the air quality is really poor due to the lack of rain. That’s why today we’re going to study how human activities have impacted the global climate, and the greenhouse effect on Earth, which is causing global warming. But first, let’s understand a bit about what the greenhouse effect is.",
@@ -120,3 +120,13 @@ export const conversation = [
   "Elon - Whoa, that’s awesome!",
   "Teacher - The first extreme climate event we’ll explore is the melting of the polar ice caps, caused by rising temperatures at the poles. Did you know that the Arctic is warming more than twice as fast as the global average? That’s why its ice is melting so quickly. The poles are among the most affected regions by global warming. Now, let’s explore this reality up close! Equip your devices!",
 ];
+
+export const final_conversation = [
+  "Teacher - So, everyone! How was the experience of exploring and learning more about each of these four extreme weather events?",
+  "Elon - It was a lot of fun, teacher! I learned things I never imagined about how global warming is affecting our planet.",
+  "Teacher - I'm glad to hear that! You faced heat waves, droughts, glacier melt, rising sea levels, and wildfires. Now it's time to see how much you really absorbed.",
+  "Teacher - We're going to have a test on everything we've covered during these challenges. You'll have the chance to show everything you've learned about how global warming is impacting our planet and how we, humans, are responsible for these changes.",
+  "Elon - A test? After this adventure, I'm more than ready!",
+  "Teacher - That's the spirit, Elon! The experience was just the beginning. Now it's time to solidify this knowledge and prepare ourselves for the future, because, as we've seen, understanding climate change and what we can do to mitigate it is crucial for the future survival of life on planet Earth.",
+  "Elon - Absolutely, teacher. I'm ready!"
+]
