@@ -126,6 +126,18 @@ export const initial_conversation = [
   "Teacher - The first extreme climate event we’ll explore is the melting of the polar ice caps, caused by rising temperatures at the poles. Did you know that the Arctic is warming more than twice as fast as the global average? That’s why its ice is melting so quickly. The poles are among the most affected regions by global warming. Now, let’s explore this reality up close! Equip your devices!",
 ];
 
+export const pre_ice_level_conversation = [
+  "Teacher - Welcome to the polar bears' home, one of the coldest and most beautiful places on the planet. Here, ice reigns, holding 70% of the freshwater needed to sustain human life.",
+  "Teacher - But the climate is changing... and soon this balance will be threatened.",
+  "Mission - The Arctic is warming more than twice as fast as the global average, causing the ice to melt rapidly. Reach the other side of the map, but be careful not to fall into the icy waters!"
+];
+
+export const pre_parking_scene_conversation = [
+  "Teacher - Now that you've faced the melting glaciers in the Arctic, let's explore one of the main consequences of this process: sea level rise.",
+  "Teacher - Sea level rise is caused by two main factors. The first is the melting of glaciers and polar ice caps, which adds more water to the oceans. The second is thermal expansion – when ocean water warms, it expands, taking up more space.",
+  "Teacher - Both factors are linked to global warming, and the consequences are serious. Coastal cities, islands, and even large urban areas, like this one, are at risk of being submerged."
+];
+
 export const final_conversation = [
   "Teacher - So, everyone! How was the experience of exploring and learning more about each of these four extreme weather events?",
   "Elon - It was a lot of fun, teacher! I learned things I never imagined about how global warming is affecting our planet.",

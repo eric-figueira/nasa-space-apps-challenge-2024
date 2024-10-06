@@ -1,5 +1,5 @@
 import { k } from "./kaboom-context";
-import { scaleFactor, dialogueData, initial_conversation, final_conversation, realDialogueData } from "./constants";
+import { scaleFactor, dialogueData, initial_conversation, final_conversation, realDialogueData, pre_ice_level_conversation, pre_parking_scene_conversation } from "./constants";
 import { displayDialog, displayConversation } from "./dialogue";
 import { setCamScale } from "./camera";
 import { loadSprites } from "./sprites-loader";
@@ -330,7 +330,7 @@ k.scene("cat", async () => {
 
   player.onCollide("water", () => {
 		k.go("lose", { backTo: "cat" });
-	})
+	});
 });
 
 k.scene("classroom", async ({ isFinalScene }) => {
@@ -375,7 +375,7 @@ k.scene("classroom", async ({ isFinalScene }) => {
       });
     }  else {
       displayConversation(initial_conversation, () => {
-        k.go("cat");
+        k.go("transition", { conversation: pre_ice_level_conversation, nextScene: "ice" });
       });
     }
   });
@@ -577,7 +577,7 @@ k.scene("parking", async () => {
     {
       speed: 350,
       direction: "up",
-      isInDialogue: false
+      isInDialogue: true
     },
     "player"
   ])
@@ -629,6 +629,10 @@ k.scene("parking", async () => {
 
   k.onUpdate(() => {
     k.camPos(player.pos.x, player.pos.y);
+  });
+
+  displayConversation(pre_parking_scene_conversation, () => {
+    player.isInDialogue = false
   });
 
   k.onKeyDown((key) => {
@@ -850,7 +854,7 @@ k.scene("ice", async () => {
   const player = k.make([
     k.sprite("bears", { anim: "idle-side" }),
     k.area({ shape: new k.Rect(k.vec2(0, 3), 10, 10)}),
-    k.body(),
+    k.body({ jumpForce: 1000 }),
     k.anchor("center"),
     k.pos(),
     k.scale(scaleFactor / 2),
@@ -890,6 +894,10 @@ k.scene("ice", async () => {
               player.isInDialogue = false;
             });
           })
+        } else {
+          player.onCollide("water", () => {
+            k.go("lose", { backTo: "cat" });
+          });
         }
       }
 
@@ -917,6 +925,7 @@ k.scene("ice", async () => {
       k.isKeyDown("left"),
       k.isKeyDown("up"),
       k.isKeyDown("down"),
+      k.isKeyDown("space"),
     ];
 
     let nbOfKeyPressed = 0;
@@ -931,6 +940,7 @@ k.scene("ice", async () => {
 
     if (keyMap[0]) {
       player.flipX = false;
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
       player.direction = "right";
       player.move(player.speed, 0);
       return;
@@ -938,6 +948,7 @@ k.scene("ice", async () => {
 
     if (keyMap[1]) {
       player.flipX = true;
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
       player.direction = "left";
       player.move(-player.speed, 0);
       return;
@@ -945,15 +956,30 @@ k.scene("ice", async () => {
 
     if (keyMap[2]) {
       player.direction = "up";
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
       player.move(0, -player.speed);
       return;
     }
 
     if (keyMap[3]) {
+      if (player.curAnim() !== "walk-side") player.play("walk-side");
       player.direction = "down";
       player.move(0, player.speed);
     }
+
+    if (keyMap[4]) {
+      if (player.curAnim() !== "jump") player.play("jump");
+      player.direction = "up";
+
+      jump(player);
+    }
   });
+
+  function stopAnimation() {
+    player.play("idle-side");
+  }
+
+  k.onKeyRelease(stopAnimation);
 });
 
 k.scene("transition", async ({ conversation, nextScene }) => {
@@ -990,4 +1016,5 @@ k.scene("lose", async ({ backTo }) => {
 });
 
 
+// k.go("classroom", { isFinalScene: false });
 k.go("forest");

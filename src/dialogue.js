@@ -64,6 +64,7 @@ export function displayConversation(conversation, onConversationEnd) {
       dialogue.innerHTML = "";
 
       onConversationEnd();
+      return;
     }
 
     displayText(conversation[textIndex]);

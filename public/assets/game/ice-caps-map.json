@@ -1049,12 +1049,12 @@
         {
          "draworder":"topdown",
          "id":3,
-         "name":"player",
+         "name":"spawnpoint",
          "objects":[
                 {
                  "height":0,
                  "id":124,
-                 "name":"",
+                 "name":"player",
                  "point":true,
                  "rotation":0,
                  "type":"",
