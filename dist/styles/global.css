@@ -1,11 +1,11 @@
 @font-face {
   font-family: monogram;
-  src: url(../monogram.ttf);
+  src: url(../assets/fonts/monogram.ttf);
 }
 
 body {
   font-family: monogram, monospace;
-  font-size: 2rem;
+  font-size: 3rem;
   overflow: hidden;
 }
 
@@ -42,7 +42,7 @@ body {
 .ui-text {
   margin: 0;
   user-select: none;
-  font-size: 24px;
+  font-size: 2rem;
 }
 
 .ui-close-btn {
