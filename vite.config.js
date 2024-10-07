@@ -7,7 +7,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        nested: resolve(__dirname, 'quiz.html'),
+        quiz: resolve(__dirname, 'quiz.html'),
       },
     },
     minify: "terser"
