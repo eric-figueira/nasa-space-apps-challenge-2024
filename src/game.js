@@ -187,9 +187,16 @@ k.scene("main", async () => {
 
 k.scene("cat", async ({ hasConversation }) => {
   try {
+    catSound.stop()
     parkingSound.stop()
   }
-  catch { }
+  catch {
+    try {
+      parkingSound.stop()
+      catSound.stop()
+    }
+    catch { }
+  }
 
   catSound = k.play("catSound", { volume: 0.1, loop: true })
 
@@ -431,7 +438,7 @@ k.scene("desert", async ({ hasConversation }) => {
   try {
     forestSound.stop()
   }
-  catch {}
+  catch { }
 
   desertSound = k.play("desertSound", { volume: 0.2, loop: true })
 
@@ -1072,12 +1079,28 @@ k.scene("ice", async ({ hasConversation }) => {
 k.scene("transition", async ({ conversation, nextScene }) => {
   try {
     desertSound.stop()
-    catSound.stop()
-    iceSound.stop()
-    schoolSound.stop()
-    parkingSound.stop()
   }
-  catch { }
+  catch {
+    try {
+      catSound.stop()
+    }
+    catch {
+      try {
+        iceSound.stop()
+      }
+      catch {
+        try {
+          schoolSound.stop()
+        }
+        catch {
+          try {
+            parkingSound.stop()
+          }
+          catch { }
+        }
+      }
+    }
+  }
 
   victory = k.play("victory", { volume: 0.2, loop: false })
 
