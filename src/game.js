@@ -407,7 +407,7 @@ k.scene("classroom", async ({ isFinalScene }) => {
   k.wait(3, () => {
     if (isFinalScene) {
       displayConversation(final_conversation, () => {
-        window.location.href = "/public/quiz";
+        window.location.href = "/quiz";
       });
     } else {
       displayConversation(initial_conversation, () => {
