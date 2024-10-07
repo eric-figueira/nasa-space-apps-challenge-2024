@@ -1116,6 +1116,31 @@ k.scene("transition", async ({ conversation, nextScene }) => {
 });
 
 k.scene("lose", async ({ backTo }) => {
+  try {
+    desertSound.stop()
+  }
+  catch {
+    try {
+      catSound.stop()
+    }
+    catch {
+      try {
+        iceSound.stop()
+      }
+      catch {
+        try {
+          schoolSound.stop()
+        }
+        catch {
+          try {
+            parkingSound.stop()
+          }
+          catch { }
+        }
+      }
+    }
+  }  
+
   gameover = k.play("gameover", { volume: 0.2, loop: false })
 
   k.add([

@@ -139,7 +139,8 @@ export const post_ice_level_conversation = [
 export const pre_parking_scene_conversation = [
   "Teacher - Now that you've faced the melting glaciers in the Arctic, let's explore one of the main consequences of this process: sea level rise.",
   "Teacher - Sea level rise is caused by two main factors. The first is the melting of glaciers and polar ice caps, which adds more water to the oceans. The second is thermal expansion – when ocean water warms, it expands, taking up more space.",
-  "Teacher - Both factors are linked to global warming, and the consequences are serious. Coastal cities, islands, and even large urban areas, like this one, are at risk of being submerged."
+  "Teacher - Both factors are linked to global warming, and the consequences are serious. Coastal cities, islands, and even large urban areas, like this one, are at risk of being submerged.",
+  "OBS - Click on the screen after each dialog box to enable movement!"
 ];
 
 export const pre_cat_level_conversation = [
