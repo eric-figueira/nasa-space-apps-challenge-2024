@@ -414,7 +414,7 @@ k.scene("classroom", async ({ isFinalScene }) => {
   k.wait(3, () => {
     if (isFinalScene) {
       displayConversation(final_conversation, () => {
-        window.location.href = "/quiz";
+        window.location.href = "/nasa-space-apps-challenge-2024/quiz";
       });
     } else {
       displayConversation(initial_conversation, () => {
